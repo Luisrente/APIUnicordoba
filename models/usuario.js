@@ -4,7 +4,11 @@ const { Schema, model } = require('mongoose');
 const UsuarioSchema = Schema({
     nombre: {
         type: String,
-        required: [true, 'El nombre es obligatorio']
+        // required: [true, 'El nombre es obligatorio']
+    },
+    apellido: {
+        type: String,
+        // required: [true, 'El nombre es obligatorio']
     },
     correo: {
         type: String,
@@ -13,7 +17,14 @@ const UsuarioSchema = Schema({
     },
     password: {
         type: String,
-        required: [true, 'La contraseña es obligatoria'],
+        // required: [true, 'La contraseña es obligatoria'],
+    },
+    codigo: {
+        type: String,
+        // required: [true, 'La contraseña es obligatoria'],
+    },
+    huella: {
+        type: String,
     },
     img: {
         type: String,
@@ -26,10 +37,6 @@ const UsuarioSchema = Schema({
     estado: {
         type: Boolean,
         default: true
-    },
-    google: {
-        type: Boolean,
-        default: false
     },
 });
 

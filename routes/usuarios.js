@@ -16,12 +16,13 @@ const { usuariosGet,
         usuariosPut,
         usuariosPost,
         usuariosDelete,
-        usuariosPatch } = require('../controllers/usuarios');
+        usuariosPatch ,usuariosPas} = require('../controllers/usuarios');
 
 const router = Router();
 
 
 router.get('/', usuariosGet );
+router.get('/user/:id', usuariosPas );
 
 router.put('/:id',[
     check('id', 'No es un ID válido').isMongoId(),
@@ -32,11 +33,11 @@ router.put('/:id',[
 
 router.post('/',[
     check('nombre', 'El nombre es obligatorio').not().isEmpty(),
-    check('password', 'El password debe de ser más de 6 letras').isLength({ min: 6 }),
+    // check('password', 'El password debe de ser más de 6 letras').isLength({ min: 6 }),
     check('correo', 'El correo no es válido').isEmail(),
     check('correo').custom( emailExiste ),
     // check('rol', 'No es un rol válido').isIn(['ADMIN_ROLE','USER_ROLE']),
-    check('rol').custom( esRoleValido ), 
+    // check('rol').custom( esRoleValido ), 
     validarCampos
 ], usuariosPost );
 

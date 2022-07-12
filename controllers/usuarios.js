@@ -24,6 +24,23 @@ const usuariosGet = async(req = request, res = response) => {
     });
 }
 
+const usuariosPas = async(req = request, res = response) => {
+
+     const { id  } = req.params;
+
+     const usuario = await Usuario.findOne({ id });
+
+     console.log(`${usuario}`+"ggggg");
+
+    console.log("rrrr"+`${id}`);
+
+    res.json({
+        id
+    });
+
+
+}
+
 const usuariosPost = async(req, res = response) => {
     
     const { nombre, correo, password, rol } = req.body;
@@ -40,6 +57,7 @@ const usuariosPost = async(req, res = response) => {
         usuario
     });
 }
+
 
 const usuariosPut = async(req, res = response) => {
 
@@ -81,4 +99,5 @@ module.exports = {
     usuariosPut,
     usuariosPatch,
     usuariosDelete,
+    usuariosPas
 }
