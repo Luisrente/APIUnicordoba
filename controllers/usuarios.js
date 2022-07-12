@@ -27,9 +27,20 @@ const usuariosGet = async(req = request, res = response) => {
 const usuariosPas = async(req = request, res = response) => {
     const { id  } = req.params;
     const usuario = await Usuario.findOne({ codigo: id });
+
+    if(usuario == null){
+        return res.status(400).json({
+            msg: 'Usuario / Password no son correctos - password'
+        });
+
+    }else{
+
     res.json(
         usuario
     );
+
+
+    }
 }
 
 const usuariosPost = async(req, res = response) => {
