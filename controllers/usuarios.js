@@ -25,26 +25,17 @@ const usuariosGet = async(req = request, res = response) => {
 }
 
 const usuariosPas = async(req = request, res = response) => {
-
-     const { id  } = req.params;
-
-     const usuario = await Usuario.findOne({ nombre:  "luis" });
-
-     console.log(`${usuario}`+"ggggg");
-
-    console.log("rrrr"+`${id}`);
-
-    res.json({
+    const { id  } = req.params;
+    const usuario = await Usuario.findOne({ codigo: id });
+    res.json(
         usuario
-    });
-
-
+    );
 }
 
 const usuariosPost = async(req, res = response) => {
     
-    const { nombre, correo, password, rol } = req.body;
-    const usuario = new Usuario({ nombre, correo, password, rol });
+    const { nombre,apellido,correo,password,codigo,huella,img,rol,estado}=req.body;
+    const usuario = new Usuario({ nombre,apellido,correo,password,codigo,huella,img,rol,estado });
 
     // Encriptar la contraseña
     const salt = bcryptjs.genSaltSync();
@@ -53,9 +44,9 @@ const usuariosPost = async(req, res = response) => {
     // Guardar en BD
     await usuario.save();
 
-    res.json({
+    res.json(
         usuario
-    });
+    );
 }
 
 
