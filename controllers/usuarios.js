@@ -28,14 +28,14 @@ const usuariosPas = async(req = request, res = response) => {
 
      const { id  } = req.params;
 
-     const usuario = await Usuario.findOne({ id });
+     const usuario = await Usuario.findOne({ nombre:  "luis" });
 
      console.log(`${usuario}`+"ggggg");
 
     console.log("rrrr"+`${id}`);
 
     res.json({
-        id
+        usuario
     });
 
 
