@@ -1,7 +1,7 @@
 
 const { Schema, model } = require('mongoose');
 
-const UsuarioSchema = Schema({
+const AsistenciaSchema = Schema({
     nombre: {
         type: String,
         // required: [true, 'El nombre es obligatorio']
@@ -25,31 +25,31 @@ const UsuarioSchema = Schema({
     },
     documento: {
         type: String,
-        required: [true, 'La documento es obligatoria'],
+        required: [true, 'El documento es obligatorio']
     },
-    huella: {
+    dependencia: {
         type: String,
+        required: [true, 'La dependencia es obligatorio']
     },
-    img: {
+    sede: {
         type: String,
-    },
-    rol: {
-        type: String,
-        required: true,
-        emun: ['ADMIN_ROLE', 'USER_ROLE']
+        required: [true, 'La sede es obligatorio']
     },
     estado: {
-        type: Boolean,
-        default: true
+        type: String,
+        default: "true"
     },
+    horaInsert: {
+        type: Date,
+        default: Date
+    }
 });
 
 
 
-UsuarioSchema.methods.toJSON = function() {
-    const { __v, password, _id, ...usuario  } = this.toObject();
-    usuario.uid = _id;
-    return usuario;
+AsistenciaSchema.methods.toJSON = function() {
+    const { __v, ...Asist  } = this.toObject();
+    return Asist;
 }
 
-module.exports = model( 'Usuario', UsuarioSchema );
+module.exports = model( 'Asistencia', AsistenciaSchema );

@@ -21,26 +21,32 @@ const login = async(req, res = response) => {
         }
 
         // SI el usuario está activo
-        if ( !usuario.estado ) {
-            return res.status(400).json({
-                msg: 'Usuario / Password no son correctos - estado: false'
-            });
-        }
+        // if ( !usuario.estado ) {
+        //     return res.status(400).json({
+        //         msg: 'Usuario / Password no son correctos - estado: false'
+        //     });
+        // }
 
         // Verificar la contraseña
-        const validPassword = bcryptjs.compareSync( password, usuario.password );
-        if ( !validPassword ) {
+        // const validPassword = bcryptjs.compareSync( password, usuario.password );
+        // if ( !validPassword ) {
+        //     return res.status(400).json({
+        //         msg: 'Usuario / Password no son correctos - password'
+        //     });
+        // }
+
+        if ( usuario.password!=password ) {
             return res.status(400).json({
                 msg: 'Usuario / Password no son correctos - password'
             });
         }
 
         // Generar el JWT
-        const token = await generarJWT( usuario.id );
+        // const token = await generarJWT( usuario.id );
 
         res.json({
             usuario,
-            token
+            "token":"rr"
         })
 
     } catch (error) {

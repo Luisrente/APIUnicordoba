@@ -24,6 +24,8 @@ const usuariosGet = async(req = request, res = response) => {
     });
 }
 
+
+
 const usuariosPas = async(req = request, res = response) => {
     const { id  } = req.params;
     const usuario = await Usuario.findOne({ codigo: id });
@@ -34,6 +36,8 @@ const usuariosPas = async(req = request, res = response) => {
         });
 
     }else{
+
+
 
     res.json(
         usuario
@@ -50,7 +54,7 @@ const usuariosPost = async(req, res = response) => {
 
     // Encriptar la contraseña
     const salt = bcryptjs.genSaltSync();
-    usuario.password = bcryptjs.hashSync( password, salt );
+    // usuario.password = bcryptjs.hashSync( password, salt );
 
     // Guardar en BD
     await usuario.save();
