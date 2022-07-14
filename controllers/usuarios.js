@@ -51,11 +51,9 @@ const usuariosPost = async(req, res = response) => {
     console.log("fhfhfhfhf");
     const { nombre,apellido,correo,password,codigo,huella,img,rol,estado,id, documento}=req.body;
     const usuario = new Usuario({ id,nombre,apellido,correo,password,codigo,huella,img,rol,estado ,documento});
-
     // Encriptar la contraseña
     const salt = bcryptjs.genSaltSync();
     // usuario.password = bcryptjs.hashSync( password, salt );
-
     // Guardar en BD
     await usuario.save();
     console.log("ttttttt");
@@ -67,6 +65,21 @@ const usuariosPost = async(req, res = response) => {
 
 
 const usuariosPut = async(req, res = response) => {
+
+    const { id } = req.params;
+    const { _id, password, google, correo, ...resto } = req.body;
+
+    if ( password ) {
+        // Encriptar la contraseña
+        const salt = bcryptjs.genSaltSync();
+        resto.password = bcryptjs.hashSync( password, salt );
+    }
+
+    const usuario = await Usuario.findByIdAndUpdate( id, resto );
+
+    res.json(usuario);
+}
+const usuariosPuthuella = async(req, res = response) => {
 
     const { id } = req.params;
     const { _id, password, google, correo, ...resto } = req.body;
@@ -106,5 +119,6 @@ module.exports = {
     usuariosPut,
     usuariosPatch,
     usuariosDelete,
-    usuariosPas
+    usuariosPas,
+    usuariosPuthuella
 }

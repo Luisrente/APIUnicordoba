@@ -16,13 +16,17 @@ const { usuariosGet,
         usuariosPut,
         usuariosPost,
         usuariosDelete,
-        usuariosPatch ,usuariosPas} = require('../controllers/usuarios');
+        usuariosPatch ,
+        usuariosPas,
+        usuariosPuthuella
+    } = require('../controllers/usuarios');
 
 const router = Router();
 
 
 router.get('/', usuariosGet );
 router.get('/user/:id', usuariosPas );
+router.get('/huella/:id', usuariosPuthuella );
 
 router.put('/:id',[
     check('id', 'No es un ID válido').isMongoId(),
@@ -30,6 +34,13 @@ router.put('/:id',[
     check('rol').custom( esRoleValido ), 
     validarCampos
 ],usuariosPut );
+
+// router.put('/:id',[
+//     // check('id', 'No es un ID válido').isMongoId(),
+//     // check('id').custom( existeUsuarioPorId ),
+//     // check('rol').custom( esRoleValido ), 
+//     // validarCampos
+// ],usuariosPuthuella );
 
 router.post('/',[
     check('nombre', 'El nombre es obligatorio').not().isEmpty(),

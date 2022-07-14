@@ -2,6 +2,7 @@
 const { Schema, model } = require('mongoose');
 var autoIncrement = require("mongodb-autoincrement");
 
+
 const AsistenciaSchema = Schema({
     nombre: {
         type: String,
