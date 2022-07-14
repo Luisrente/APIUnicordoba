@@ -1,5 +1,6 @@
 
 const { Schema, model } = require('mongoose');
+var autoIncrement = require("mongodb-autoincrement");
 
 const AsistenciaSchema = Schema({
     nombre: {
@@ -14,10 +15,6 @@ const AsistenciaSchema = Schema({
         type: String,
         required: [true, 'El correo es obligatorio'],
         unique: true
-    },
-    password: {
-        type: String,
-        // required: [true, 'La contraseña es obligatoria'],
     },
     codigo: {
         type: String,

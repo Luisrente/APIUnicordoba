@@ -1,7 +1,16 @@
 
 const { Schema, model } = require('mongoose');
 
+// var autoIncrement = require("mongodb-autoincrement");
+var autoIncrement = require("mongodb-autoincrement");
+
+
 const UsuarioSchema = Schema({
+
+    id: {type: String, 
+        // required: true
+    },
+
     nombre: {
         type: String,
         // required: [true, 'El nombre es obligatorio']
@@ -44,6 +53,14 @@ const UsuarioSchema = Schema({
     },
 });
 
+// UsuarioSchema.plugin(autoIncrement.plugin, {
+//     model: 'Subscribers',
+//     field: '_id'
+// });
+UsuarioSchema.plugin(autoIncrement.mongoosePlugin,{
+    model: 'Subscribers',
+    field: 'id'
+});
 
 
 UsuarioSchema.methods.toJSON = function() {

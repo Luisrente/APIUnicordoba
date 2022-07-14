@@ -48,9 +48,9 @@ const usuariosPas = async(req = request, res = response) => {
 }
 
 const usuariosPost = async(req, res = response) => {
-    
-    const { nombre,apellido,correo,password,codigo,huella,img,rol,estado}=req.body;
-    const usuario = new Usuario({ nombre,apellido,correo,password,codigo,huella,img,rol,estado });
+    console.log("fhfhfhfhf");
+    const { nombre,apellido,correo,password,codigo,huella,img,rol,estado,id, documento}=req.body;
+    const usuario = new Usuario({ id,nombre,apellido,correo,password,codigo,huella,img,rol,estado ,documento});
 
     // Encriptar la contraseña
     const salt = bcryptjs.genSaltSync();
@@ -58,6 +58,7 @@ const usuariosPost = async(req, res = response) => {
 
     // Guardar en BD
     await usuario.save();
+    console.log("ttttttt");
 
     res.json(
         usuario
