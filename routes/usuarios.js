@@ -26,7 +26,7 @@ const router = Router();
 
 router.get('/', usuariosGet );
 router.get('/user/:id', usuariosPas );
-router.get('/huella/:id', usuariosPuthuella );
+router.get('/huella/:index', usuariosPuthuella );
 
 router.put('/:id',[
     check('id', 'No es un ID válido').isMongoId(),

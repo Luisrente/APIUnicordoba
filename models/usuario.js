@@ -6,11 +6,9 @@ var autoIncrement = require("mongodb-autoincrement");
 
 
 const UsuarioSchema = Schema({
-
-    id: {type: String, 
+    index: {type: String, 
         // required: true
     },
-
     nombre: {
         type: String,
         // required: [true, 'El nombre es obligatorio']
@@ -59,7 +57,7 @@ const UsuarioSchema = Schema({
 // });
 UsuarioSchema.plugin(autoIncrement.mongoosePlugin,{
     model: 'Subscribers',
-    field: 'id'
+    field: 'index'
 });
 
 

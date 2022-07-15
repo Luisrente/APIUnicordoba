@@ -49,8 +49,8 @@ const usuariosPas = async(req = request, res = response) => {
 
 const usuariosPost = async(req, res = response) => {
     console.log("fhfhfhfhf");
-    const { nombre,apellido,correo,password,codigo,huella,img,rol,estado,id, documento}=req.body;
-    const usuario = new Usuario({ id,nombre,apellido,correo,password,codigo,huella,img,rol,estado ,documento});
+    const { nombre,apellido,correo,password,codigo,huella,img,rol,estado,index, documento}=req.body;
+    const usuario = new Usuario({ index,nombre,apellido,correo,password,codigo,huella,img,rol,estado ,documento});
     // Encriptar la contraseña
     const salt = bcryptjs.genSaltSync();
     // usuario.password = bcryptjs.hashSync( password, salt );
@@ -79,20 +79,30 @@ const usuariosPut = async(req, res = response) => {
 
     res.json(usuario);
 }
+
 const usuariosPuthuella = async(req, res = response) => {
-
-    const { id } = req.params;
-    const { _id, password, google, correo, ...resto } = req.body;
-
-    if ( password ) {
-        // Encriptar la contraseña
-        const salt = bcryptjs.genSaltSync();
-        resto.password = bcryptjs.hashSync( password, salt );
+    const { index } = req.params;
+    console.log('index${index}');
+       if ( index ) {
+        try{
+            console.log(index);
+            const id = await Usuario.find({index:index}).select("id");
+            const usuario = await Usuario.findByIdAndUpdate( id, {"huella":index});
+            res.json(
+                usuario
+            ); 
+        }catch (error) {
+            console.log(error);
+            return res.status(400).json({
+                msg: 'Error '
+            });
+        }
+    }else{
+        res.json({
+            msg: 'put Api required password',
+            update:false
+        });
     }
-
-    const usuario = await Usuario.findByIdAndUpdate( id, resto );
-
-    res.json(usuario);
 }
 
 const usuariosPatch = (req, res = response) => {
