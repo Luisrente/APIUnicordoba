@@ -3,6 +3,8 @@ const bcryptjs = require('bcryptjs');
 
 
 const Usuario = require('../models/usuario');
+const Asistencia = require('../models/asistencia');
+const asistencia = require('../models/asistencia');
 
 
 
@@ -32,17 +34,21 @@ const usuariosPas = async(req = request, res = response) => {
 
     if(usuario == null){
         return res.status(400).json({
-            msg: 'Usuario / Password no son correctos - password'
+            msg: 'Error 404'
         });
 
     }else{
-
-
-
-    res.json(
-        usuario
-    );
-
+        // asistencia =  new Asistencia({usuario})
+        // const respAsit =  await  asistencia.create();
+        // if( respAsit == null){
+        //     return res.status(400).json({
+        //         msg: 'Error 404'
+        //     });
+        // }else{
+        //  res.json(
+        //      usuario
+        //  );
+        // }
 
     }
 }
