@@ -3,9 +3,9 @@ const { Schema, model } = require('mongoose');
 const usuario = require('./usuario');
 
 const AsistenciaSchema = Schema({
-    usuario: {
-        type: usuario,
-    },
+    // usuario: {
+    //     type: usuario,
+    // },
     horaInsert: {
         type: Date,
         default: Date.now

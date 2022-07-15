@@ -3,9 +3,8 @@ const bcryptjs = require("bcryptjs");
 
 const Usuario = require("../models/usuario");
 
-const Usuario = require('../models/usuario');
-const Asistencia = require('../models/asistencia');
 const asistencia = require('../models/asistencia');
+
 const usuariosGet = async (req = request, res = response) => {
   const { limite = 5, desde = 0 } = req.query;
   const query = { estado: true };
