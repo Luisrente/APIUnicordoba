@@ -3,9 +3,22 @@ const { Schema, model } = require('mongoose');
 const usuario = require('./usuario');
 
 const AsistenciaSchema = Schema({
-    // usuario: {
-    //     type: usuario,
-    // },
+    nombre: {
+        type: String,
+        default: Date.now
+    },
+    apellido: {
+        type: String,
+        // required: [true, 'El nombre es obligatorio']
+    },
+    codigo: {
+        type: String,
+        // required: [true, 'El nombre es obligatorio']
+    },
+    documento: {
+        type: String,
+        // required: [true, 'El nombre es obligatorio']
+    },
     horaInsert: {
         type: Date,
         default: Date.now

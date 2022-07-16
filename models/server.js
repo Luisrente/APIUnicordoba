@@ -11,6 +11,7 @@ class Server {
 
         this.usuariosPath = '/api/usuarios';
         this.authPath     = '/api/auth';
+        this.tokenPath     = '/api/token';
 
         // Conectar a base de datos
         this.conectarDB();
@@ -41,9 +42,9 @@ class Server {
     }
 
     routes() {
-        
         this.app.use( this.authPath, require('../routes/auth'));
         this.app.use( this.usuariosPath, require('../routes/usuarios'));
+        this.app.use( this.tokenPath, require('../routes/token'));
     }
 
     listen() {

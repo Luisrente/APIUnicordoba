@@ -1,9 +1,7 @@
 const { response, request } = require("express");
 const bcryptjs = require("bcryptjs");
-
 const Usuario = require("../models/usuario");
-
-const asistencia = require('../models/asistencia');
+const Asistencia = require('../models/asistencia');
 
 const usuariosGet = async (req = request, res = response) => {
   const { limite = 5, desde = 0 } = req.query;
@@ -23,34 +21,36 @@ const usuariosGet = async (req = request, res = response) => {
 const usuariosPas = async (req = request, res = response) => {
   const { id } = req.params;
   try {
-    const usuario = await Usuario.findOne({ codigo: id });
-
-
+   const usuario = await Usuario.findOne({ codigo: id });
+   console.log( usuario.nombre);
     if(usuario == null){
         return res.status(400).json({
             msg: 'Error 404'
         });
-
     }else{
-        // asistencia =  new Asistencia({usuario})
-        // const respAsit =  await  asistencia.create();
-        // if( respAsit == null){
-        //     return res.status(400).json({
-        //         msg: 'Error 404'
-        //     });
-        // }else{
-        //  res.json(
-        //      usuario
-        //  );
-        // }
 
-    if (usuario == null) {
-      return res.status(401).json({
-        msg: "Usuario / Password no son correctos - password",
-      });
-    }
-    return res.status(200).json(usuario);
+        asistencia =  new Asistencia({usuario,nombre:usuario.nombre})
+        const respAsit =  await  asistencia.save();
+        if( respAsit == null){
+            return res.status(400).json({
+                msg: 'Error 404'
+            });
+        }else{
+         res.json(
+             usuario
+         );
+        }
+
+    // if (usuario == null) {
+    //   return res.status(401).json({
+    //     msg: "Usuario / Password no son correctos - password",
+    //   });
+    // }
+    // return res.status(200).json(usuario);
+
+
   } 
+
 }catch (error) {
     console.log(error);
     return res.status(400).json({
