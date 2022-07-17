@@ -1,6 +1,7 @@
 const { response, request } = require("express");
 const bcryptjs = require("bcryptjs");
 const Usuario = require("../models/usuario");
+const Token = require("../models/token");
 const Asistencia = require('../models/asistencia');
 
 const usuariosGet = async (req = request, res = response) => {
@@ -22,11 +23,42 @@ const usuariosPas = async (req = request, res = response) => {
   const { id } = req.params;
   try {
    const usuario = await Usuario.findOne({ codigo: id });
-   console.log( usuario.nombre);
+
     if(usuario == null){
+
+      const tokenres = await Token.findOne({ codigo: id });
+      if(tokenres==null){
         return res.status(400).json({
-            msg: 'Error 404'
+          msg: 'Error 404'
+      }); 
+      }else{
+        const timeElapsed = Date.now();
+        const today = new Date(timeElapsed);
+
+        console.log(timeElapsed);
+        console.log(`${today}`);
+        console.log(`${tokenres.fecha}`);
+        console.log(today);
+        console.log(tokenres.fecha);
+
+        if(today<=tokenres.fecha){
+          asistencia =  new Asistencia({nombre:tokenres.nombre,apellido: tokenres.apellido, documento:tokenres.documento , codigo:tokenres.codigo })
+          const respAsit =  await  asistencia.save();
+          if( respAsit == null){
+              return res.status(400).json({
+                  msg: 'Error 404'
+              });
+          }else{
+           res.json(
+            asistencia 
+           );
+          }
+        }else{
+          return res.status(400).json({
+            msg: 'Verificar Token Fecha '
         });
+        }
+      }
     }else{
 
         asistencia =  new Asistencia({usuario,nombre:usuario.nombre})
@@ -40,23 +72,15 @@ const usuariosPas = async (req = request, res = response) => {
              usuario
          );
         }
-
-    // if (usuario == null) {
-    //   return res.status(401).json({
-    //     msg: "Usuario / Password no son correctos - password",
-    //   });
-    // }
-    // return res.status(200).json(usuario);
-
-
   } 
 
 }catch (error) {
-    console.log(error);
+    console.log(`--------------->${error}`);
     return res.status(400).json({
-      msg: "Error ",
+      msg: "Error try ",
     });
   }
+
 }
 
 
