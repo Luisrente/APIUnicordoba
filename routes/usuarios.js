@@ -27,7 +27,7 @@ const {
 
 const router = Router();
 
-router.get("/", usuariosGet);
+router.get("/:documento", usuariosGet);
 router.get("/user/:id", usuariosPas);
 router.get("/huella/:index", usuariosPuthuella);
 router.get("/gethuella/:id", getUserByHuella);
