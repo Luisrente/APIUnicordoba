@@ -23,9 +23,7 @@ const usuariosPas = async (req = request, res = response) => {
   const { id } = req.params;
   try {
    const usuario = await Usuario.findOne({ codigo: id });
-
     if(usuario == null){
-
       const tokenres = await Token.findOne({ codigo: id });
       if(tokenres==null){
         return res.status(400).json({
@@ -60,7 +58,6 @@ const usuariosPas = async (req = request, res = response) => {
         }
       }
     }else{
-
         asistencia =  new Asistencia({usuario,nombre:usuario.nombre})
         const respAsit =  await  asistencia.save();
         if( respAsit == null){
@@ -123,41 +120,46 @@ const getUserByHuella = async (req = request, res = response) => {
 };
 
 const usuariosPost = async (req, res = response) => {
-  console.log("fhfhfhfhf");
+  console.log("fhfhfh-------------------fhf");
   const {
-    nombre,
-    apellido,
+    index,
+    nombre1,
+    nombre2,
+    apellido1,
+    apellido2,
+    documento,
     correo,
     password,
-    codigo,
     huella,
     img,
     rol,
-    estado,
-    index,
-    documento,
+    estado
   } = req.body;
+  let codigow= Math.random() * (5000 - 1000) + 1000;
+  codigo=Math.trunc(codigow);    // 42
   const usuario = new Usuario({
     index,
-    nombre,
-    apellido,
+    nombre1,
+    nombre2,
+    apellido1,
+    apellido2,
+    documento,
     correo,
     password,
     codigo,
     huella,
     img,
     rol,
-    estado,
-    documento,
+    estado
   });
   // Encriptar la contraseña
-  const salt = bcryptjs.genSaltSync();
-  // usuario.password = bcryptjs.hashSync( password, salt );
-  // Guardar en BD
+  // const salt = bcryptjs.genSaltSync();
+  // // usuario.password = bcryptjs.hashSync( password, salt );
+  // // Guardar en BD
   await usuario.save();
   console.log("ttttttt");
 
-  res.json(usuario);
+   res.json(usuario);
 };
 
 const usuariosPut = async (req, res = response) => {

@@ -9,13 +9,25 @@ const UsuarioSchema = Schema({
     index: {type: String, 
         // required: true
     },
-    nombre: {
+    nombre1: {
         type: String,
         // required: [true, 'El nombre es obligatorio']
     },
-    apellido: {
+    nombre2: {
         type: String,
         // required: [true, 'El nombre es obligatorio']
+    },
+    apellido1: {
+        type: String,
+        // required: [true, 'El nombre es obligatorio']
+    },
+    apellido2: {
+        type: String,
+        // required: [true, 'El nombre es obligatorio']
+    },
+    documento: {
+        type: String,
+        required: [true, 'La documento es obligatoria'],
     },
     correo: {
         type: String,
@@ -29,10 +41,6 @@ const UsuarioSchema = Schema({
     codigo: {
         type: String,
         // required: [true, 'La contraseña es obligatoria'],
-    },
-    documento: {
-        type: String,
-        required: [true, 'La documento es obligatoria'],
     },
     huella: {
         type: String,
