@@ -27,9 +27,9 @@ const usuariosGet = async (req = request, res = response) => {
             msg: 'Usuario / Password no son correctos - correo'
         });
     }
-    res.json({
+    res.json(
         usuario
-    });
+    );
 };
 
 const usuariosPas = async (req = request, res = response) => {
