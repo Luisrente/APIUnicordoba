@@ -134,45 +134,55 @@ const getUserByHuella = async (req = request, res = response) => {
 
 const usuariosPost = async (req, res = response) => {
   console.log("fhfhfh-------------------fhf");
-  const {
-    index,
-    nombre1,
-    nombre2,
-    apellido1,
-    apellido2,
-    documento,
-    correo,
-    password,
-    huella,
-    img,
-    rol,
-    estado
-  } = req.body;
-  let codigow= Math.random() * (5000 - 1000) + 1000;
-  codigo=Math.trunc(codigow);    // 42
-  const usuario = new Usuario({
-    index,
-    nombre1,
-    nombre2,
-    apellido1,
-    apellido2,
-    documento,
-    correo,
-    password,
-    codigo,
-    huella,
-    img,
-    rol,
-    estado
-  });
-  // Encriptar la contraseña
-  // const salt = bcryptjs.genSaltSync();
-  // // usuario.password = bcryptjs.hashSync( password, salt );
-  // // Guardar en BD
-  await usuario.save();
-  console.log("ttttttt");
 
-   res.json(usuario);
+
+  try {
+    const {
+      index,
+      nombre1,
+      nombre2,
+      apellido1,
+      apellido2,
+      documento,
+      correo,
+      password,
+      huella,
+      img,
+      rol,
+      estado
+    } = req.body;
+    let codigow= Math.random() * (5000 - 1000) + 1000;
+    codigo=Math.trunc(codigow);    // 42
+    const usuario = new Usuario({
+      index,
+      nombre1,
+      nombre2,
+      apellido1,
+      apellido2,
+      documento,
+      correo,
+      password,
+      codigo,
+      huella,
+      img,
+      rol,
+      estado
+    });
+  
+    await usuario.save();
+    console.log("ttttttt");
+  
+     res.json(usuario);
+    
+  } catch (error) {
+    res.status(400).json({
+      
+    });
+
+  }
+ 
+
+
 };
 
 const usuariosPut = async (req, res = response) => {
