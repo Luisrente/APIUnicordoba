@@ -4,10 +4,10 @@ const TokenSchema = Schema({
     codigo: {
         type: Number,
     },
-    nombre: {
+    nombre1: {
         type: String,
     },
-    apellido: {
+    apellido1: {
         type: String,
     },
     documento: {
@@ -15,6 +15,9 @@ const TokenSchema = Schema({
     },
     fecha: {
         type: Date
+    },
+    tiempo: {
+        type: String
     }
 });
 

@@ -5,12 +5,10 @@ const Token = require('../models/token');
 
 
 const generartoken = async(req, res = response) => {
-
     console.log("-----------------------------------");
-    const { nombre, documento, apellido, fecha, codigo} = req.body;
-
+    const { nombre1, documento, apellido1, fecha, codigo, tiempo} = req.body;
     try {
-        const token = new Token({ nombre,documento, apellido, fecha,codigo });
+        const token = new Token({ nombre1,documento, apellido1, fecha,codigo , tiempo});
        const tokenn= await token.save();
         // if ( !usuario ) {
         //     return res.status(400).json({
