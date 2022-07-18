@@ -187,18 +187,46 @@ const usuariosPost = async (req, res = response) => {
 
 const usuariosPut = async (req, res = response) => {
   const { id } = req.params;
-  const { _id, password, google, correo, ...resto } = req.body;
-
-  if (password) {
-    // Encriptar la contraseña
-    const salt = bcryptjs.genSaltSync();
-    resto.password = bcryptjs.hashSync(password, salt);
+  const { password ,estado=true} = req.body;
+  if ( password ) {
+      // Encriptar la contraseña
+      //  const salt = bcryptjs.genSaltSync();
+      //  password = bcryptjs.hashSync( password, salt );
+      try {
+          const usuario = await Usuario.findByIdAndUpdate( id, {"estado":true,"password":password}, );
+          // const usuario = await Usuario.findOne({ id });
+          res.json({
+              usuario,
+              "token": "rrr"
+          }); 
+      } catch (error) {
+          res.json({
+              msg: 'put API - Error',
+              update:false
+          });  
+      }
+  }else{
+      res.json({
+          msg: 'put Api required password',
+          update:false
+      });
   }
-
-  const usuario = await Usuario.findByIdAndUpdate(id, resto);
-
-  res.json(usuario);
 };
+
+// const usuariosPut = async (req, res = response) => {
+//   const { id } = req.params;
+//   const { _id, password, google, correo, ...resto } = req.body;
+
+//   if (password) {
+//     // Encriptar la contraseña
+//     const salt = bcryptjs.genSaltSync();
+//     resto.password = bcryptjs.hashSync(password, salt);
+//   }
+
+//   const usuario = await Usuario.findByIdAndUpdate(id, resto);
+
+//   res.json(usuario);
+// };
 
 const usuariosPatch = (req, res = response) => {
   res.json({
