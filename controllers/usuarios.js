@@ -34,6 +34,10 @@ const usuariosGet = async (req = request, res = response) => {
 
 const usuariosPas = async (req = request, res = response) => {
   const { id } = req.params;
+  const timeElapsed = Date.now();
+  const today = new Date(timeElapsed);
+  console.log(`${today}`);
+  console.log(today);
   try {
    const usuario = await Usuario.findOne({ codigo: id });
     if(usuario == null){
@@ -43,17 +47,12 @@ const usuariosPas = async (req = request, res = response) => {
           msg: 'Error 404'
       }); 
       }else{
-        const timeElapsed = Date.now();
-        const today = new Date(timeElapsed);
-
-        console.log(timeElapsed);
-        console.log(`${today}`);
-        console.log(`${tokenres.fecha}`);
-        console.log(today);
+        // console.log(`${tokenres.fecha}`);
+        // console.log(today);
         console.log(tokenres.fecha);
 
         if(today<=tokenres.fecha){
-          asistencia =  new Asistencia({nombre:tokenres.nombre,apellido: tokenres.apellido, documento:tokenres.documento , codigo:tokenres.codigo })
+          asistencia =  new Asistencia({ forma: 'token',nombre:tokenres.nombre1,apellido: tokenres.apellido1, documento:tokenres.documento , codigo:tokenres.codigo })
           const respAsit =  await  asistencia.save();
           if( respAsit == null){
               return res.status(400).json({
@@ -71,7 +70,8 @@ const usuariosPas = async (req = request, res = response) => {
         }
       }
     }else{
-        asistencia =  new Asistencia({usuario,nombre:usuario.nombre})
+        // asistencia =  new Asistencia({usuario,nombre:usuario.nombre})
+        asistencia =  new Asistencia({ forma: 'token',nombre:usuario.nombre1,apellido: usuario.apellido1, documento:usuario.documento , codigo:usuario.codigo })
         const respAsit =  await  asistencia.save();
         if( respAsit == null){
             return res.status(400).json({
@@ -79,11 +79,10 @@ const usuariosPas = async (req = request, res = response) => {
             });
         }else{
          res.json(
-             usuario
+          respAsit
          );
         }
   } 
-
 }catch (error) {
     console.log(`--------------->${error}`);
     return res.status(400).json({
@@ -122,8 +121,18 @@ const getUserByHuella = async (req = request, res = response) => {
       return res.status(401).json({
         msg: "User not found",
       });
+    }else{
+
+      asistencia =  new Asistencia({ forma: 'Huella',nombre:usuario.nombre1,apellido: usuario.apellido1, documento:usuario.documento , codigo:usuario.huella })
+      const respAsit =  await  asistencia.save();
+      if( respAsit == null){
+          return res.status(400).json({
+              msg: 'Error 404'
+          });
+      }else{
+        return res.status(200).json(respAsit);
+      }
     }
-    return res.status(200).json(usuario);
   } catch (error) {
     console.log(error);
     return res.status(500).json({

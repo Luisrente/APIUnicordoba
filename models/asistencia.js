@@ -3,9 +3,11 @@ const { Schema, model } = require('mongoose');
 const usuario = require('./usuario');
 
 const AsistenciaSchema = Schema({
+    forma: {
+        type: String,
+    },
     nombre: {
         type: String,
-        default: Date.now
     },
     apellido: {
         type: String,

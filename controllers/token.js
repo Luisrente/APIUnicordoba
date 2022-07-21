@@ -36,10 +36,9 @@ const generartoken = async(req, res = response) => {
         //         msg: 'Usuario / Password no son correctos - password'
         //     });
         // }
-
         // Generar el JWT
         // const token = await generarJWT( usuario.id );
-
+        console.log(tokenn);
         res.json(
             tokenn
         )

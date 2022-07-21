@@ -32,6 +32,7 @@ router.get("/user/:id", usuariosPas);
 router.get("/huella/:index", usuariosPuthuella);
 router.get("/gethuella/:id", getUserByHuella);
 
+
 router.put(
   "/:id",
   [
