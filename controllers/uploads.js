@@ -7,7 +7,7 @@ cloudinary.config( process.env.CLOUDINARY_URL );
 const { response } = require('express');
 const { subirArchivo } = require('../helpers');
 
-const { Usuario, Producto , Asistencia} = require('../models');
+const { Usuario} = require('../models');
 
 
 const cargarArchivo = async(req, res = response) => {
@@ -109,11 +109,22 @@ const actualizarImagenCloudinary = async(req, res = response ) => {
         const [ public_id ] = nombre.split('.');
         cloudinary.uploader.destroy( public_id );
     }
-    const { tempFilePath } = req.files.archivo
+
+    console.log("rrrrrrrrrr");
+    try {
+        const { tempFilePath } = req.files.archivo
     const { secure_url } = await cloudinary.uploader.upload( tempFilePath );
     modelo.img = secure_url;
     await modelo.save();
     res.json( modelo );
+        
+    } catch (error) {
+        console.log(error);
+        res.json( "eee" );
+
+ 
+    }
+    
 }
 
 const mostrarImagen = async(req, res = response ) => {
