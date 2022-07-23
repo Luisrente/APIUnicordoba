@@ -51,7 +51,8 @@ const usuariosPas = async (req = request, res = response) => {
         // console.log(today);
         console.log(tokenres.fecha);
 
-        if(today<=tokenres.fecha){
+        // if(today<=tokenres.fecha){
+
           asistencia =  new Asistencia({ forma: 'token',nombre:tokenres.nombre1,apellido: tokenres.apellido1, documento:tokenres.documento , codigo:tokenres.codigo })
           const respAsit =  await  asistencia.save();
           if( respAsit == null){
@@ -63,11 +64,11 @@ const usuariosPas = async (req = request, res = response) => {
             asistencia 
            );
           }
-        }else{
-          return res.status(400).json({
-            msg: 'Verificar Token Fecha '
-        });
-        }
+        // }else{
+        //   return res.status(400).json({
+        //     msg: 'Verificar Token Fecha '
+        // });
+        // }
       }
     }else{
         // asistencia =  new Asistencia({usuario,nombre:usuario.nombre})
