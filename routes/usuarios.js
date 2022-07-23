@@ -23,6 +23,7 @@ const {
   usuariosPas,
   usuariosPuthuella,
   getUserByHuella,
+  usuariosToken
 } = require("../controllers/usuarios");
 
 const router = Router();
@@ -31,6 +32,8 @@ router.get("/:documento", usuariosGet);
 router.get("/user/:id", usuariosPas);
 router.get("/huella/:index", usuariosPuthuella);
 router.get("/gethuella/:id", getUserByHuella);
+
+router.post("/personat", usuariosToken);
 
 
 router.put(

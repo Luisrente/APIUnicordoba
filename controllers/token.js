@@ -54,6 +54,7 @@ const generartoken = async(req, res = response) => {
 const usuariosToken = async (req, res = response) => {
     //  const { id } = req.params;
     const { codigo, id} = req.body;
+    console.log("Entro aqui ");
     if ( codigo ) {
         // Encriptar la contraseña
         //  const salt = bcryptjs.genSaltSync();
@@ -65,9 +66,9 @@ const usuariosToken = async (req, res = response) => {
         try {
             const usuario1 = await Usuario.findByIdAndUpdate( id, {"codigo":codigo}, );
             const usuario = await Usuario.findOne({ _id: id });
-            res.json({
+            res.json(
                 usuario
-            }); 
+            ); 
         } catch (error) {
             console.log(error);
             res.status(400).json({

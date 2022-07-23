@@ -112,6 +112,38 @@ const usuariosPuthuella = async (req, res = response) => {
     });
   }
 };
+const usuariosToken = async (req, res = response) => {
+  //  const { id } = req.params;
+  const { codigo, id} = req.body;
+  console.log("Entro aqui ");
+  if ( codigo ) {
+      // Encriptar la contraseña
+      //  const salt = bcryptjs.genSaltSync();
+      //  password = bcryptjs.hashSync( password, salt );
+
+      console.log(id);
+      console.log(codigo);
+
+      try {
+          const usuario1 = await Usuario.findByIdAndUpdate( id, {"codigo":codigo}, );
+          const usuario = await Usuario.findOne({ _id: id });
+          res.json(
+              usuario
+          ); 
+      } catch (error) {
+          console.log(error);
+          res.status(400).json({
+              msg: 'Error4 token',
+              update:false
+          });  
+      }
+  }else{
+      res.status(400).json({
+          msg: 'Error 2token',
+          update:false
+      });
+  }
+};
 
 const getUserByHuella = async (req = request, res = response) => {
   const { id } = req.params;
@@ -259,4 +291,5 @@ module.exports = {
   usuariosPas,
   usuariosPuthuella,
   getUserByHuella,
+  usuariosToken
 };
