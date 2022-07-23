@@ -7,7 +7,7 @@ const {
   } = require("../controllers/token");
 
  router.post("/",generartoken );
-  router.post("/personal/:id",usuariosToken );
+  router.post("/personal",usuariosToken );
 
 
 
