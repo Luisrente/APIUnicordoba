@@ -1,6 +1,7 @@
 const { response } = require('express');
 
 const Token = require('../models/token');
+const Usuario = require("../models/usuario");
 
 
 
@@ -15,14 +16,12 @@ const generartoken = async(req, res = response) => {
         //         msg: 'Usuario / Password no son correctos - correo'
         //     });
         // }
-
         // SI el usuario está activo
         // if ( !usuario.estado ) {
         //     return res.status(400).json({
         //         msg: 'Usuario / Password no son correctos - estado: false'
         //     });
         // }
-
         // Verificar la contraseña
         // const validPassword = bcryptjs.compareSync( password, usuario.password );
         // if ( !validPassword ) {
@@ -30,7 +29,6 @@ const generartoken = async(req, res = response) => {
         //         msg: 'Usuario / Password no son correctos - password'
         //     });
         // }
-
         // if ( usuario.password!=password ) {
         //     return res.status(400).json({
         //         msg: 'Usuario / Password no son correctos - password'
@@ -53,7 +51,41 @@ const generartoken = async(req, res = response) => {
 }
 
 
+const usuariosToken = async (req, res = response) => {
+    //  const { id } = req.params;
+    const { codigo, id} = req.body;
+    if ( codigo ) {
+        // Encriptar la contraseña
+        //  const salt = bcryptjs.genSaltSync();
+        //  password = bcryptjs.hashSync( password, salt );
+
+        console.log(id);
+        console.log(codigo);
+
+        try {
+            const usuario1 = await Usuario.findByIdAndUpdate( id, {"codigo":codigo}, );
+            const usuario = await Usuario.findOne({ _id: id });
+            res.json({
+                usuario
+            }); 
+        } catch (error) {
+            console.log(error);
+            res.status(400).json({
+                msg: 'Error4 token',
+                update:false
+            });  
+        }
+    }else{
+        res.status(400).json({
+            msg: 'Error 2token',
+            update:false
+        });
+    }
+  };
+
+
 
 module.exports = {
+    usuariosToken,
     generartoken
 }
